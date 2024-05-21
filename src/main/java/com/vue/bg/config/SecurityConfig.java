@@ -1,6 +1,11 @@
 package com.vue.bg.config;
 
 import com.vue.bg.service.AuthService;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,7 +46,7 @@ public class SecurityConfig {
         return http.cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/addNewUser","/auth/generateToken").permitAll()
+                .requestMatchers("/auth/addNewUser","/auth/generateToken", "/swagger-ui/**", "/v3/api-docs").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("**").authenticated()
                 .and()
@@ -84,4 +89,14 @@ public class SecurityConfig {
         return source;
     }
 
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .components(new Components().addSecuritySchemes("Token",
+                        new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")
+                                .in(SecurityScheme.In.HEADER).name("Authorization")))
+                .info(new Info().title("Vue API").version("0.1"))
+                .addSecurityItem(
+                        new SecurityRequirement().addList("Token", Arrays.asList("read", "write")));
+    }
 }
