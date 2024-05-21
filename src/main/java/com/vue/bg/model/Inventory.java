@@ -1,20 +1,17 @@
 package com.vue.bg.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.awt.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Data
 @Entity
-@Getter
-@Setter
 public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +20,20 @@ public class Inventory {
     private String species;
     private Integer quantity;
     private String state;
+    @Column(columnDefinition = "TEXT")
     private String notes;
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp lastmod_time;
-    private Integer id_user;
-    private Integer id_place;
-    private Integer id_source;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "id_place")
+    private Place place;
+
+    @ManyToOne
+    @JoinColumn(name = "id_source")
+    private Source source;
 }

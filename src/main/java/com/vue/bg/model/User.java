@@ -6,18 +6,21 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Set;
+
 @Data
 @Entity
-@Getter
-@Setter
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(unique = true)
     private String name;
     private String email;
     private String password;
-    private String role = "ADMIN";
+    private String role = "USER";
 
+    @OneToMany(mappedBy = "user")
+    private Set<Inventory> inventory;
 }
