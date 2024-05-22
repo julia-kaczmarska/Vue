@@ -1,5 +1,6 @@
 package com.vue.bg.service;
 
+import com.vue.bg.controller.dto.UserDto;
 import com.vue.bg.entity.UserInfoDetails;
 import com.vue.bg.model.User;
 import com.vue.bg.repository.UserRepository;
@@ -30,10 +31,14 @@ public class AuthService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found " + name));
     }
 
-    public String addUser(User userInfo) {
-        userInfo.setPassword(encoder.encode(userInfo.getPassword()));
-        userInfo.setRole(userInfo.getRole());
-        repository.save(userInfo);
+    public String addUser(UserDto.UserInfo userDto) {
+        User user = new User();
+        user.setEmail(userDto.getEmail());
+        user.setName(userDto.getName());
+        user.setPassword(encoder.encode(userDto.getPassword()));
+
+        repository.save(user);
+
         return "User Added Successfully";
     }
 }

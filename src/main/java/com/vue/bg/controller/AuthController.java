@@ -1,7 +1,7 @@
 package com.vue.bg.controller;
 
+import com.vue.bg.controller.dto.UserDto;
 import com.vue.bg.entity.AuthRequest;
-import com.vue.bg.model.User;
 import com.vue.bg.service.AuthService;
 import com.vue.bg.service.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -25,18 +25,18 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
 
-    @PostMapping("/addNewUser")
-    public String addNewUser(@RequestBody User user) {
+    @PostMapping("/register")
+    public String addNewUser(@RequestBody UserDto.UserInfo user) {
         return service.addUser(user);
     }
 
-    @PostMapping("/generateToken")
+    @PostMapping("/login")
     public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(),
+                .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getName(),
                         authRequest.getPassword()));
         if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(authRequest.getUsername());
+            return jwtService.generateToken(authRequest.getName());
         } else {
             throw new UsernameNotFoundException("invalid user request !");
         }

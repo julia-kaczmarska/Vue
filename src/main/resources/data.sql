@@ -1,5 +1,5 @@
 INSERT INTO users (email, name, password, role)
-SELECT 'string@string.pl', 'string', '$2a$10$TOBl6zsdiFGFlyns1VMJG.LbgXKyHagvAksbGjDqQGWDJFh.RSiUe', 'ADMIN'
+SELECT 'string@string.pl', 'string', '$2a$10$HYL/9hSCcBBe2i5s7pKK0.o4RZhfQQyIcpqOZFDRpNdO/AgZu30Ky', 'ADMIN'
 WHERE NOT EXISTS (SELECT 1 FROM users WHERE name = 'string');
 
 INSERT INTO source (name)

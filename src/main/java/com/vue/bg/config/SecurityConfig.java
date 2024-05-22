@@ -46,7 +46,7 @@ public class SecurityConfig {
         return http.cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/addNewUser","/auth/generateToken", "/swagger-ui/**", "/v3/api-docs").permitAll()
+                .requestMatchers("/auth/register","/auth/login", "/swagger-ui/**", "/v3/api-docs").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("**").authenticated()
                 .and()
@@ -99,4 +99,5 @@ public class SecurityConfig {
                 .addSecurityItem(
                         new SecurityRequirement().addList("Token", Arrays.asList("read", "write")));
     }
+
 }
