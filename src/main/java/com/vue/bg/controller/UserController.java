@@ -3,6 +3,7 @@ package com.vue.bg.controller;
 import com.vue.bg.controller.dto.UserDto;
 import com.vue.bg.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +20,14 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/user/{name}")
-    @PreAuthorize("#name == authentication.principal.username or hasAuthority('ADMIN')")
+    @PostAuthorize("#name == authentication.principal.username or hasAuthority('ADMIN')")
     public List<UserDto.UserDetailed> getUser(@PathVariable String name) {
         return userService.getUser(name);
+    }
+
+    @GetMapping("/users")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public List<UserDto.UserDetailed> getUsers() {
+        return userService.getUsers();
     }
 }

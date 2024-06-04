@@ -26,4 +26,15 @@ public class UserService {
                         .build())
                 .collect(Collectors.toList());
     }
+
+    public List<UserDto.UserDetailed> getUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(user -> UserDto.UserDetailed.builder()
+                        .email(user.getEmail())
+                        .name(user.getName())
+                        .role(user.getRole())
+                        .build())
+                .collect(Collectors.toList());
+    }
 }
