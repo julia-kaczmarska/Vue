@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 @Builder
 @AllArgsConstructor
 public class InventoryDto implements Serializable {
+    private Integer id;
     private String name;
     private String species;
     private Integer quantity;

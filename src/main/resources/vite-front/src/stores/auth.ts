@@ -53,9 +53,8 @@ export const useAuthStore = defineStore({
         isTokenExpired() {
             if(localStorage.getItem('user') != null) {
                 const token = JSON.parse(localStorage.getItem('user')).token;
-                const tokenData = JSON.parse(atob(token.split('.')[1])); // Splitting and decoding the token to get the payload
-                const expirationTime = tokenData.exp * 1000; // Converting expiration time to milliseconds
-                console.log(expirationTime)
+                const tokenData = JSON.parse(atob(token.split('.')[1]));
+                const expirationTime = tokenData.exp * 1000;
                 console.log("Expired? ", Date.now() >= expirationTime)
                 if(Date.now() >= expirationTime) {
                     this.logout()

@@ -3,12 +3,9 @@ package com.vue.bg.controller;
 import com.vue.bg.controller.dto.InventoryDto;
 import com.vue.bg.service.InventoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -26,5 +23,11 @@ public class InventoryController {
     ) {
         Map<String, Object> response = inventoryService.getInventory(page, size);
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/inventory/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateInventory(@PathVariable Integer id, @RequestBody InventoryDto inventoryDto) {
+        inventoryService.updateInventory(id, inventoryDto);
     }
 }

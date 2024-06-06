@@ -11258,3 +11258,12 @@ body {
   border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
+#inputNotes {
+  min-height: 5em;
+}
+
+.auto-expand {
+  overflow: hidden;
+  resize: none;
+}

@@ -32,19 +32,19 @@ const onSubmit = async () => {
   <form @submit.prevent="onSubmit"
         oninput='passwordConfirm.setCustomValidity(passwordConfirm.value !== password.value ? "Passwords do not match." : "")'>
     <div class="form-floating mb-3">
-      <input class="form-control" id="inputEmail" type="email" minlength="9" maxlength="64" placeholder="name@example.com" v-model="user.email" />
+      <input class="form-control" id="inputEmail" type="email" minlength="9" maxlength="64" required placeholder="name@example.com" v-model="user.email" />
       <label for="inputEmail">Email address</label>
     </div>
     <div class="form-floating mb-3">
-      <input class="form-control" id="inputUsername" minlength="3" maxlength="32" type="text" placeholder="Username" v-model="user.username" />
+      <input class="form-control" id="inputUsername" minlength="3" maxlength="32" type="text" required placeholder="Username" v-model="user.username" />
       <label for="inputUsername">Username</label>
     </div>
     <div class="form-floating mb-3">
-      <input class="form-control" id="inputPassword" minlength="3" maxlength="32" type="password" placeholder="Password" v-model="user.password"  name="password"/>
+      <input class="form-control" id="inputPassword" minlength="3" maxlength="32" type="password" required placeholder="Password" v-model="user.password"  name="password"/>
       <label for="inputPassword">Password</label>
     </div>
     <div class="form-floating mb-3">
-      <input class="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password" name="passwordConfirm"/>
+      <input class="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password" required name="passwordConfirm"/>
       <label for="inputPasswordConfirm">Confirm Password</label>
     </div>
     <div class="d-flex align-items-center justify-content-center mt-4 mb-0">

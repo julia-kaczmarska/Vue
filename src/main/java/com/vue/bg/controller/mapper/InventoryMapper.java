@@ -7,6 +7,7 @@ public class InventoryMapper {
 
     public static InventoryDto mapToInventoryDto(Inventory inventory) {
         return InventoryDto.builder()
+                .id(inventory.getId())
                 .name(inventory.getName())
                 .species(inventory.getSpecies())
                 .quantity(inventory.getQuantity())

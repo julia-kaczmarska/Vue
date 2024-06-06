@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import {useAuthStore} from "@/stores/auth";
 import DashboardView from '@/views/DashboardView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import PageNotFound from "@/views/PageNotFound.vue";
-import {useAuthStore} from "@/stores/auth";
+import ItemEditView from "@/views/ItemEditView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,8 +29,16 @@ const router = createRouter({
       name: 'Register',
       component: RegisterView
     },
-    { path: '/:pathMatch(.*)',
-      component: PageNotFound }
+    {
+      path: '/item/:id',
+      name: 'ItemEdit',
+      component: ItemEditView,
+      meta: { requiresAdmin: true }
+    },
+    {
+      path: '/:pathMatch(.*)',
+      component: PageNotFound
+    }
   ]
 })
 
@@ -39,6 +48,9 @@ router.beforeEach(async (to) => {
   const auth = useAuthStore();
 
   if (authRequired && auth.user) {
+    return '/';
+  }
+  if (to.meta.requiresAdmin && (!auth.user || auth.user.role !== 'ADMIN')) {
     return '/';
   }
 })
