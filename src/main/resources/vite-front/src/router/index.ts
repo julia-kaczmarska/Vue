@@ -3,7 +3,7 @@ import {useAuthStore} from "@/stores/auth";
 import DashboardView from '@/views/DashboardView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
-import PageNotFound from "@/views/PageNotFound.vue";
+import PageNotFound from "@/views/errors/PageNotFound.vue";
 import ItemEditView from "@/views/ItemEditView.vue";
 
 const router = createRouter({

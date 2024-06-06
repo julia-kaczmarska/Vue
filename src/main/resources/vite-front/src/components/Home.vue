@@ -3,6 +3,7 @@ import axios from "axios";
 import { DataTable } from 'simple-datatables';
 import { nextTick, onMounted, ref, watch } from "vue";
 import router from "@/router";
+import ServerError from "@/views/errors/ServerError.vue";
 
 interface User {
   name: string;
@@ -125,8 +126,8 @@ watch(inventory, () => {
       <i class="fas fa-table me-1"></i>
       Inventory
     </div>
-    <div class="card-body">
-      <div v-if="inventory.length > 0">
+    <div class="card-body" v-if="inventory.length > 0">
+      <div>
         <table id="datatablesSimple" class="text-center">
           <thead>
           <tr>
@@ -160,6 +161,9 @@ watch(inventory, () => {
           </tbody>
         </table>
       </div>
+    </div>
+    <div v-if="inventory.length == 0">
+      <ServerError />
     </div>
   </div>
 </template>
